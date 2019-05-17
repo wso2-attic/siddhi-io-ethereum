@@ -258,11 +258,11 @@ public class TestCaseOfEthereumSource {
         siddhiAppRuntime.start();
         SiddhiTestHelper.waitForEvents(waitTime, 2, eventCount, timeout);
 
-        log.info("pause");
+        log.info("pause the event consumption");
         sources.forEach(e -> e.forEach(Source::pause));
         Thread.sleep(10000);
         sources.forEach(e -> e.forEach(Source::resume));
-        log.info("resume");
+        log.info("resume the event consumption");
         eventArrived.set(false);
         SiddhiTestHelper.waitForEvents(waitTime, 2, eventCount, timeout);
         Thread.sleep(10000);

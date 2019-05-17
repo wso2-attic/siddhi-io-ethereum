@@ -97,35 +97,6 @@ under the License. <version>1.0.17</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.wso2.carbon.maven</groupId>
-                <artifactId>carbon-feature-plugin</artifactId>
-                <version>${carbon.feature.plugin.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <configuration>
-                    <preparationGoals>clean install</preparationGoals>
-                    <autoVersionSubmodules>true</autoVersionSubmodules>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.wso2.siddhi</groupId>
-                <artifactId>siddhi-doc-gen</artifactId>
-                <version>${siddhi.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate-md-docs</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
     <properties>
         <siddhi.version>4.5.5</siddhi.version>
         <siddhi.version.range>[4.0.0,5.0.0)</siddhi.version.range>

@@ -45,7 +45,7 @@ public class EthereumUtil {
     public EthereumUtil() {
     }
 
-    //map for new transactions and replay transaction
+    //called to create map for new transactions and replay transaction
     private static Map<String, Object> createMapForTransaction(Transaction transaction) {
 
         Map<String, Object> transactionMap = new HashMap<>();
@@ -63,7 +63,7 @@ public class EthereumUtil {
         return transactionMap;
     }
 
-    //map for pending transaction neglecting the null elements of a transaction.
+    //called to create map for pending transaction neglecting the null elements of a transaction.
     private static Map<String, Object> createMapForPendingTransaction(Transaction transaction) {
 
         Map<String, Object> transactionMap = new HashMap<>();
@@ -77,7 +77,7 @@ public class EthereumUtil {
         return transactionMap;
     }
 
-    //map for new block
+    //called to create map for new block
     private static Map<String, Object> createMapForNewBlock(EthBlock.Block block) {
 
         Map<String, Object> blockMap = new HashMap<>();
@@ -100,7 +100,7 @@ public class EthereumUtil {
         return blockMap;
     }
 
-    // to create filtering
+    // called to create filtering
     public void createFilter(String filterName, String fromBlock, String toBlock,
                              SourceEventListener sourceEventListener, Web3j web3j) {
 
@@ -117,7 +117,7 @@ public class EthereumUtil {
                 });
                 break;
             case EthereumConstants.FILTER_NEW_TRANSACTION:
-                //create an instance that emits all new transactions as they are comfirmed on the blockchain.
+                // create an instance that emits all new transactions as they are comfirmed on the blockchain.
                 subscription = web3j.transactionObservable().subscribe(tx -> {
                     filterMap = EthereumUtil.createMapForTransaction(tx);
                     listen();
@@ -127,7 +127,7 @@ public class EthereumUtil {
                 });
                 break;
             case EthereumConstants.FILTER_PENDING_TRANSACTION:
-                /*create an instance that emits all pending transactions that have yet to be placed
+                /* create an instance that emits all pending transactions that have yet to be placed
                  into a block on the blockchain.*/
                 subscription = web3j.pendingTransactionObservable().subscribe(tx -> {
                     filterMap = EthereumUtil.createMapForPendingTransaction(tx);
@@ -138,7 +138,7 @@ public class EthereumUtil {
                 });
                 break;
             case EthereumConstants.FILTER_REPLAY_TRANSACTION:
-                /*create an instance that emits all transactions from the blockchain contained
+                /* create an instance that emits all transactions from the blockchain contained
                 within the requested range*/
                 DefaultBlockParameter startBlock = DefaultBlockParameter.valueOf(fromBlock);
                 DefaultBlockParameter endBlock = DefaultBlockParameter.valueOf(toBlock);
@@ -154,13 +154,14 @@ public class EthereumUtil {
         }
     }
 
-    //to close the subscription for observable
+    //called to close the subscription for observable
     public void closeSubscription() {
         if (subscription != null) {
             subscription.unsubscribe();
         }
     }
 
+    //called to make request to listener thread
     private void listen() {
         if (paused) {
             lock.lock();
@@ -176,10 +177,12 @@ public class EthereumUtil {
         }
     }
 
+    //called to pause event consumption
     public void pause() {
         paused = true;
     }
 
+    //called to resume event consumption
     public void resume() {
         paused = false;
         try {

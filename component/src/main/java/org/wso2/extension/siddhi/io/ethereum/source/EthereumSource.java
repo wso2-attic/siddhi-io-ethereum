@@ -51,7 +51,9 @@ import java.util.concurrent.ScheduledExecutorService;
                 "To receive the events from the ethereum blockchain, " +
                 "You can specify all attributes which were included in the response of the following functions\n " +
                 "https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getblockbyhash \n" +
-                "https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionbyhash \n",
+                "https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionbyhash \n" +
+                "To start the client follow the document here,\n" +
+                "https://docs.web3j.io/getting_started.html",
         parameters = {
                 @Parameter(name = EthereumConstants.ETHEREUM_URI,
                         description = "The URI that is used to connect to ethereum blockchain. " +
@@ -93,7 +95,6 @@ import java.util.concurrent.ScheduledExecutorService;
                                 "filter='replayTransaction', from.block= 'earliest', to.block= 'latest'," +
                                 "polling.interval='60000')\n" +
                                 "define stream inputStream(from String, to String, value int);"
-
                 ),
                 @Example(
                         description = "In this example, the ethereum source polls the transactions" +
@@ -101,7 +102,6 @@ import java.util.concurrent.ScheduledExecutorService;
                         syntax = "@source(type='ethereum', @map(type='keyvalue'), uri='ws://localhost:8546'," +
                                 " filter='pendingTransaction', polling.interval='60000')\n" +
                                 "define stream inputStream(from String, to String, value int);"
-
                 ),
                 @Example(
                         description = "In this example, the ethereum source polls the new blocks every 60 seconds " +
@@ -110,7 +110,6 @@ import java.util.concurrent.ScheduledExecutorService;
                                 " filter='newBlock', polling.interval='60000')\n" +
                                 "define stream inputStream(blockNumber int, nonce int, " +
                                 "blockHash String);"
-
                 ),
                 @Example(
                         description = "In this example, the ethereum source polls the new transactions every 60 " +
@@ -118,13 +117,11 @@ import java.util.concurrent.ScheduledExecutorService;
                         syntax = "@source(type='ethereum', @map(type='keyvalue'), uri='ws://localhost:8546', " +
                                 "filter='newTransaction', polling.interval='60000')\n" +
                                 "define stream inputStream(from String, to String, value int);"
-
                 )
         }
 )
 
 public class EthereumSource extends Source {
-
     private static final Logger log = Logger.getLogger(EthereumSource.class);
     private SourceEventListener sourceEventListener;
     private String listenerUri;
@@ -143,7 +140,6 @@ public class EthereumSource extends Source {
     public void init(SourceEventListener sourceEventListener, OptionHolder optionHolder,
                      String[] requestedTransportPropertyNames, ConfigReader configReader,
                      SiddhiAppContext siddhiAppContext) {
-
         this.sourceEventListener = sourceEventListener;
         this.siddhiAppContext = siddhiAppContext;
         this.streamDefinition = sourceEventListener.getStreamDefinition();
@@ -160,36 +156,32 @@ public class EthereumSource extends Source {
 
     //to validate polling interval
     private long validatePollingInterval(OptionHolder optionHolder, String streamID) {
-
         try {
             return Long.parseLong(optionHolder.validateAndGetStaticValue(EthereumConstants.POLLING_INTERVAL,
                     EthereumConstants.DEFAULT_POLLING_INTERVAL));
         } catch (NumberFormatException e) {
-            throw new SiddhiAppCreationException(streamID + "Polling interval accepts only positive values");
+            throw new SiddhiAppCreationException(streamID + "Polling interval accepts only positive values in " + siddhiAppContext.getName());
         }
     }
 
     //to validate filter name
     private void validateFilterOption(String filterName, String streamID) {
-
         if (!filterName.equals(EthereumConstants.FILTER_NEW_BLOCK) &&
                 !filterName.equals(EthereumConstants.FILTER_NEW_TRANSACTION) &&
                 !filterName.equals(EthereumConstants.FILTER_PENDING_TRANSACTION) &&
                 !filterName.equals(EthereumConstants.FILTER_REPLAY_TRANSACTION)) {
             throw new SiddhiAppValidationException("Expected 'newBlock' or 'newTransaction' or 'pendingTransaction' " +
-                    "or 'replayTransaction' for filter, but got '" + filterName + "' in " + streamID);
+                    "or 'replayTransaction' for filter, but got '" + filterName + "' in " + streamID + " for " + siddhiAppContext.getName());
         }
     }
 
     @Override
     public Class[] getOutputEventClasses() {
-
         return new Class[]{Map.class};
     }
 
     @Override
     public void connect(ConnectionCallback connectionCallback) throws ConnectionUnavailableException {
-
         try {
             if (webSocketService == null) {
                 webSocketService = new WebSocketService(listenerUri, true);
@@ -209,7 +201,6 @@ public class EthereumSource extends Source {
 
     @Override
     public void disconnect() {
-
         if (filter != null) {
             filter.closeSubscription();
         }
