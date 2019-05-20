@@ -160,7 +160,8 @@ public class EthereumSource extends Source {
             return Long.parseLong(optionHolder.validateAndGetStaticValue(EthereumConstants.POLLING_INTERVAL,
                     EthereumConstants.DEFAULT_POLLING_INTERVAL));
         } catch (NumberFormatException e) {
-            throw new SiddhiAppCreationException(streamID + "Polling interval accepts only positive values in " + siddhiAppContext.getName());
+            throw new SiddhiAppCreationException(streamID + "Polling interval accepts only positive values in " +
+                    siddhiAppContext.getName());
         }
     }
 
@@ -171,7 +172,8 @@ public class EthereumSource extends Source {
                 !filterName.equals(EthereumConstants.FILTER_PENDING_TRANSACTION) &&
                 !filterName.equals(EthereumConstants.FILTER_REPLAY_TRANSACTION)) {
             throw new SiddhiAppValidationException("Expected 'newBlock' or 'newTransaction' or 'pendingTransaction' " +
-                    "or 'replayTransaction' for filter, but got '" + filterName + "' in " + streamID + " for " + siddhiAppContext.getName());
+                    "or 'replayTransaction' for filter, but got '" + filterName + "' in " + streamID + " for " +
+                    siddhiAppContext.getName());
         }
     }
 
