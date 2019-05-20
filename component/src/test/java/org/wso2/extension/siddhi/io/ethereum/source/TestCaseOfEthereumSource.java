@@ -37,7 +37,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TestCaseOfEthereumSource {
-
     private Logger log = Logger.getLogger(TestCaseOfEthereumSource.class);
     private AtomicInteger eventCount = new AtomicInteger(0);
     private AtomicBoolean eventArrived = new AtomicBoolean(false);
@@ -46,14 +45,12 @@ public class TestCaseOfEthereumSource {
 
     @BeforeMethod
     public void init() {
-
         eventCount.set(0);
         eventArrived.set(false);
     }
 
     @Test
     public void ethereumFilterNewBlockTest1() throws InterruptedException {
-
         log.info("---------------------------------------------------------------------------------------------");
         log.info("Ethereum Source Test Case of Filtering new blocks.");
         log.info("---------------------------------------------------------------------------------------------");
@@ -90,7 +87,6 @@ public class TestCaseOfEthereumSource {
 
     @Test
     public void ethereumFilterNewTransactionTest2() throws InterruptedException {
-
         log.info("---------------------------------------------------------------------------------------------");
         log.info("Ethereum Source Test Case of Filtering new transactions.");
         log.info("---------------------------------------------------------------------------------------------");
@@ -123,7 +119,6 @@ public class TestCaseOfEthereumSource {
 
     @Test
     public void ethereumFilterPendingTransactionTest3() throws InterruptedException {
-
         log.info("---------------------------------------------------------------------------------------------");
         log.info("Ethereum Source Test Case of Filtering pending transactions.");
         log.info("---------------------------------------------------------------------------------------------");
@@ -156,7 +151,6 @@ public class TestCaseOfEthereumSource {
 
     @Test
     public void ethereumFilterReplayTransactionTest4() throws InterruptedException {
-
         log.info("---------------------------------------------------------------------------------------------");
         log.info("Ethereum Source Test Case of replay transactions in the Blockchain.");
         log.info("---------------------------------------------------------------------------------------------");
@@ -191,7 +185,6 @@ public class TestCaseOfEthereumSource {
     // if the map annotation is not included in the siddhi app
     @Test(expectedExceptions = SiddhiAppCreationException.class)
     public void ethereumCreationExceptionTest5() {
-
         log.info("---------------------------------------------------------------------------------------------");
         log.info("Ethereum Source Test Case of Siddhi App Creation Exception.");
         log.info("---------------------------------------------------------------------------------------------");
@@ -209,7 +202,6 @@ public class TestCaseOfEthereumSource {
     // for invalid `filter`
     @Test(expectedExceptions = SiddhiAppValidationException.class)
     public void ethereumFilterCreationTest6() {
-
         log.info("---------------------------------------------------------------------------------------------");
         log.info("Ethereum Source Test Case of Siddhi App Validation for filter creation.");
         log.info("---------------------------------------------------------------------------------------------");
@@ -230,7 +222,6 @@ public class TestCaseOfEthereumSource {
     // pause and resume
     @Test
     public void ethereumPauseAndResume() throws InterruptedException {
-
         log.info("---------------------------------------------------------------------------------------------");
         log.info("Ethereum Source Test Case for pause and resume.");
         log.info("---------------------------------------------------------------------------------------------");

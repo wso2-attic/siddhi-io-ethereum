@@ -34,7 +34,6 @@ import java.util.concurrent.locks.ReentrantLock;
  * This class is for creating filter
  **/
 public class EthereumUtil {
-
     private static final Logger log = Logger.getLogger(EthereumUtil.class);
     private static Map<String, Object> filterMap;
     private Subscription subscription;
@@ -47,7 +46,6 @@ public class EthereumUtil {
 
     //called to create map for new transactions and replay transaction
     private static Map<String, Object> createMapForTransaction(Transaction transaction) {
-
         Map<String, Object> transactionMap = new HashMap<>();
         transactionMap.put(EthereumConstants.TRANSACTION_HASH, transaction.getHash());
         transactionMap.put(EthereumConstants.BLOCK_HASH, transaction.getBlockHash());
@@ -65,7 +63,6 @@ public class EthereumUtil {
 
     //called to create map for pending transaction neglecting the null elements of a transaction.
     private static Map<String, Object> createMapForPendingTransaction(Transaction transaction) {
-
         Map<String, Object> transactionMap = new HashMap<>();
         transactionMap.put(EthereumConstants.TRANSACTION_HASH, transaction.getHash());
         transactionMap.put(EthereumConstants.TRANSACTION_SENDER, transaction.getFrom());
@@ -79,7 +76,6 @@ public class EthereumUtil {
 
     //called to create map for new block
     private static Map<String, Object> createMapForNewBlock(EthBlock.Block block) {
-
         Map<String, Object> blockMap = new HashMap<>();
         blockMap.put(EthereumConstants.BLOCK_HASH, block.getHash());
         blockMap.put(EthereumConstants.BLOCK_NUMBER, block.getNumber().intValue());
@@ -103,7 +99,6 @@ public class EthereumUtil {
     // called to create filtering
     public void createFilter(String filterName, String fromBlock, String toBlock,
                              SourceEventListener sourceEventListener, Web3j web3j) {
-
         switch (filterName) {
             case EthereumConstants.FILTER_NEW_BLOCK:
                 // create an instance that emits newly created blocks on blockchain.
