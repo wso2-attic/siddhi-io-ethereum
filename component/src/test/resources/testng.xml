@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Siddhi-Io-Ethereum-Test-Suite">
+    <test name="Siddhi-io-ethereum-tests" enabled="true" preserve-order="true" parallel="false">
+        <classes>
+            <class name="org.wso2.extension.siddhi.io.ethereum.source.TestCaseOfEthereumSource"/>
+        </classes>
+    </test>
+</suite>
